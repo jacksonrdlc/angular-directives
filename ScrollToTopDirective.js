@@ -1,17 +1,25 @@
-function scrollToTopDirective() {
+(function (angular) {
+    "use strict";
 
-    var directive = {
-        restrict: 'A',
-        link: link
-    };
+    angular
+        .module('scrollToTop', [])
+        .directive('scrollToTop', scrollToTopDirective);
 
-    function link(scope, element) {
-        $(element).click(function () {
-            window.scrollTo(0, 0);
-        });
+    /* @ngInject */
+    function scrollToTopDirective() {
+
+        var directive = {
+            restrict: 'A',
+            link: link
+        };
+
+        function link(scope, element) {
+            $(element).click(function () {
+                window.scrollTo(0, 0);
+            });
+        }
+
+        return directive;
     }
 
-    return directive;
-}
-
-appModule.directive('scrollToTop', scrollToTopDirective);
+}(window.angular));

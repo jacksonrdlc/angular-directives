@@ -4,24 +4,31 @@
  from propagating (i.e. stops parent elements from firing the event).
  ------------------------------------------------------------------- */
 
-/* @ngInject */
-function stopPropagationDirective() {
+(function (angular) {
+    "use strict";
 
-    var directive = {
-        restrict: 'A',
-        link: link
-    };
+    angular
+        .module('stopPropagation', [])
+        .directive('stopPropagation', stopPropagationDirective);
 
-    function link(scope, element, attrs) {
+    /* @ngInject */
+    function stopPropagationDirective() {
 
-        var event = attrs.stopPropagation || 'click';
+        var directive = {
+            restrict: 'A',
+            link: link
+        };
 
-        element.on(event, function (e) {
-            e.stopPropagation();
-        });
+        function link(scope, element, attrs) {
+
+            var event = attrs.stopPropagation || 'click';
+
+            element.on(event, function (e) {
+                e.stopPropagation();
+            });
+        }
+
+        return directive;
     }
 
-    return directive;
-}
-
-appModule.directive('stopPropagation', stopPropagationDirective);
+}(window.angular));
